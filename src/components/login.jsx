@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -9,6 +10,12 @@ const Login = ({ display, setDisplay }) => {
   const [login, setLogin] = useState(true);
   const [error, setError] = useState(null);
   const [token, setToken] = useState("");
+
+  const navigate = useNavigate();
+
+  {
+    /* --------------- REQUETE --------------------- */
+  }
 
   const postData = async () => {
     try {
@@ -28,22 +35,19 @@ const Login = ({ display, setDisplay }) => {
         }
       );
       setToken(response.data);
-      console.log(response.data);
-      console.log("le nom de la route est:", route(login));
+      navigate("/comics");
+      setDisplay(!display);
+
+      console.log(error);
       setError(null);
     } catch (error) {
-      if (error.response) {
-        setError(
-          `Erreur ${error.response.status}: ${error.response.data.message}`
-        );
-      } else {
-        setError("Erreur serveur ou autre: " + error.message);
-      }
+      setError(error.response.data.message);
     }
   };
 
   return (
     <>
+      {/* --------------- MODAL BACKGROUND --------------------- */}
       <div
         className={display ? "bg-display" : "cover"}
         onClick={() => {
@@ -56,6 +60,8 @@ const Login = ({ display, setDisplay }) => {
           console.log("etat de la fenetre >>>>", popUp);
         }}
       ></div>
+
+      {/* --------------- MODAL SIGNUP/LOGIN --------------------- */}
       <div className={display ? "bg-display" : "modal-box"}>
         <div className="windows">
           <p>{login ? "login" : "sign'up"}</p>

@@ -14,6 +14,7 @@ const Home = () => {
           "http://localhost:3000/marvel/characters"
         );
         setData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -40,7 +41,9 @@ const Home = () => {
                   alt={`Thumbnail ${index}`}
                 />
               )}
-              <div className="perso-infos">{perso.name}</div>
+              <div className="perso-infos">
+                <div>{perso.name}</div>
+              </div>
             </Link>
           );
         })}

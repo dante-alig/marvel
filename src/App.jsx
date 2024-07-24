@@ -5,6 +5,9 @@ import Home from "./pages/home";
 import Header from "./components/header";
 import Character from "./pages/character";
 import Comics from "./pages/comics";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faStar, faCircleUser } from "@fortawesome/free-solid-svg-icons";
+library.add(faStar, faCircleUser);
 
 function App() {
   const [display, setDisplay] = useState(true);

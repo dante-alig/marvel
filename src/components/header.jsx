@@ -1,5 +1,6 @@
 import logo from "../images/marvel_logo.png";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Search from "./search";
 import Login from "./login";
 const Header = ({ display, setDisplay }) => {
@@ -9,8 +10,9 @@ const Header = ({ display, setDisplay }) => {
         <Link to="/" className="logo">
           <img src={logo} alt="logo Marvel" />
         </Link>
-        <Search />
+
         <menu>
+          <Search />
           <Link to="/">personnages</Link>
           <Link to="/comics">comics</Link>
           <div>favoris</div>
@@ -23,7 +25,7 @@ const Header = ({ display, setDisplay }) => {
               });
             }}
           >
-            login
+            <FontAwesomeIcon className="circle-icon" icon="fa-circle-user" />{" "}
           </div>
         </menu>
       </header>
