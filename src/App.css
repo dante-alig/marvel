@@ -1,0 +1,197 @@
+/* ---------- GENERAL ------------- */
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+  background-color: black;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1634px;
+  margin: 0 auto;
+}
+
+/* ---------- HEADER ------------- */
+header {
+  width: 1260px;
+  margin: 0 auto;
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  width: 100px;
+  height: 100px;
+}
+
+menu {
+  display: flex;
+  gap: 20px;
+  color: white;
+}
+
+menu div {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+form input {
+  width: 300px;
+}
+
+/* ---------- MODAL------------- */
+
+.bg-display {
+  display: none;
+}
+
+.modal-box {
+  width: 500px;
+  height: 360px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: calc(50% - 150px);
+  left: calc(50% - 250px);
+  z-index: 3;
+  border-radius: 15px;
+  background-color: white;
+  overflow: hidden;
+}
+
+.windows {
+  background-color: #b0c4de;
+  height: 30px;
+}
+
+.windows p {
+  text-align: center;
+  margin-top: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  padding: 20px;
+}
+
+form div {
+  margin: 20px;
+}
+
+.cover {
+  position: absolute;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  opacity: 80%;
+  background-color: black;
+}
+
+.modal-box button {
+  all: unset;
+  text-align: center;
+  width: 100px;
+  height: 47px;
+  background-color: #ec1c23;
+  color: white;
+  border-radius: 5px;
+}
+
+/* ---------- HOME ------------- */
+
+.container-box {
+  width: 100%;
+  margin-top: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.perso {
+  width: 183px;
+  height: 226px;
+  background-color: black;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.perso img {
+  width: 183px;
+  height: 226px;
+  object-fit: cover;
+  opacity: 80%;
+}
+
+.perso img:hover {
+  opacity: 100%;
+}
+
+.perso-infos {
+  height: 45px;
+  width: 185px;
+  position: absolute;
+  bottom: 0px;
+  text-align: center;
+  padding: 20px;
+  font-size: 11px;
+  text-transform: uppercase;
+
+  background: linear-gradient(
+    135deg,
+    #b0c4de 0%,
+    #c0c0c0 20%,
+    #d3d3d3 40%,
+    #c0c0c0 60%,
+    #a9a9a9 80%,
+    #808080 100%
+  );
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- CHARACTER ------------- */
+
+.character-box {
+  width: 1260px;
+  margin: 50px auto;
+  background-color: black;
+}
+
+.character-box img {
+  width: 1260px;
+  height: 400px;
+  object-fit: cover;
+}
+
+.character-bibliography-box {
+  width: 1260px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.character-bibliography img {
+  width: 210px;
+  height: 210px;
+  object-fit: cover;
+}
