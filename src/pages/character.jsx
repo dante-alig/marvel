@@ -1,8 +1,18 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import fond from "../images/fond.png";
+import AddToLikes from "../components/addToLikes";
 
-const Character = () => {
+const Character = ({
+  setName,
+  name,
+  image,
+  setImage,
+  link,
+  setLink,
+  token,
+}) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [dataComics, setDataComics] = useState(null);
@@ -20,7 +30,6 @@ const Character = () => {
           `http://localhost:3000/marvel/comics/${characterId}`
         );
         setDataComics(responseComics.data);
-        console.log(responseComics.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -36,22 +45,43 @@ const Character = () => {
   ) : (
     // Component after data is loaded
     <>
+      {/* ------------PRESENTATION DU PERSONNAGE--------------- */}
       <div className="character-box">
         <img
           src={`${data.thumbnail.path}.${data.thumbnail.extension}`}
           alt={`Thumbnail ${characterId}`}
         />
-        <p>{characterId}</p>
+        <div className="character-description">
+          <h1>{data.name}</h1>
+          <p>{data.description}</p>
+          {/* ------------ADD TO LIKES--------------- */}
+          <AddToLikes
+            name={name}
+            setName={setName}
+            link={link}
+            setLink={setLink}
+            image={image}
+            setImage={setImage}
+            token={token}
+            data={data}
+            characterId={characterId}
+          />
+        </div>
       </div>
+
+      {/* ------------COMICS --------------- */}
       <div className="character-bibliography-box">
         {dataComics.comics.map((comicsBooks, index) => {
-          console.log(comicsBooks);
           return (
             <div className="character-bibliography" key={index}>
-              <img
-                src={`${comicsBooks.thumbnail.path}.${comicsBooks.thumbnail.extension}`}
-                alt={`Thumbnail ${characterId}`}
-              />
+              {comicsBooks.thumbnail.path.includes("image_not_available") ? (
+                <img src={fond} alt="fond" />
+              ) : (
+                <img
+                  src={`${comicsBooks.thumbnail.path}.${comicsBooks.thumbnail.extension}`}
+                  alt={`Thumbnail ${index}`}
+                />
+              )}
             </div>
           );
         })}

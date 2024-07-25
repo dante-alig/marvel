@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import fond from "../images/fond.png";
 
-const Home = () => {
+const Home = ({ setImage, setLink, setName }) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
 
@@ -14,7 +14,6 @@ const Home = () => {
           "http://localhost:3000/marvel/characters"
         );
         setData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

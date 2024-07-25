@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
-const Login = ({ display, setDisplay }) => {
+const Login = ({ display, setDisplay, setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerif, setPasswordVerif] = useState("");
   const [popUp, setPopUp] = useState(false);
   const [login, setLogin] = useState(true);
   const [error, setError] = useState(null);
-  const [token, setToken] = useState("");
 
   const navigate = useNavigate();
 
@@ -19,7 +19,6 @@ const Login = ({ display, setDisplay }) => {
 
   const postData = async () => {
     try {
-      const data = { email, password };
       const route = (login) => {
         if (login) {
           return "login";
@@ -34,9 +33,13 @@ const Login = ({ display, setDisplay }) => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      setToken(response.data);
-      navigate("/comics");
+      const { token } = response.data;
+      setToken(token);
+      navigate("/");
       setDisplay(!display);
+      Cookies.set("token", token);
+      console.log(token);
+      console.log(Cookies.get("token"));
 
       console.log(error);
       setError(null);
@@ -56,8 +59,6 @@ const Login = ({ display, setDisplay }) => {
             document.body.style.overflow = newDisplay ? "auto" : "hidden";
             return newDisplay;
           });
-
-          console.log("etat de la fenetre >>>>", popUp);
         }}
       ></div>
 
@@ -71,6 +72,11 @@ const Login = ({ display, setDisplay }) => {
             event.preventDefault();
             if (email && password && (login || password === passwordVerif)) {
               postData();
+              setDisplay((prevDisplay) => {
+                const newDisplay = !prevDisplay;
+                document.body.style.overflow = newDisplay ? "auto" : "hidden";
+                return newDisplay;
+              });
               console.log("le formulaire a été envoyé");
             } else {
               setError("Vous devez remplir tous les champs.");
@@ -100,20 +106,21 @@ const Login = ({ display, setDisplay }) => {
               <input
                 id="passwordVerif"
                 type="password"
-                placeholder="Retapez votre mot de passe"
+                placeholder="confirmer le mot de passe"
                 value={passwordVerif}
                 onChange={(event) => setPasswordVerif(event.target.value)}
               />
             </div>
           )}
-          <button>{login ? "Je me connecte" : "S'enregistrer"}</button>
+          <button>{login ? "Je me connecte" : "Je m'enregistre"}</button>
           <p>ou</p>
           <p
+            className="modal-switch-infos"
             onClick={() => {
               setLogin(!login);
             }}
           >
-            {login ? "S'enregistrer" : "Je me connecte"}
+            {login ? "Je m'enregistre" : "Je me connecte"}
           </p>
           {error && <p className="error">{error}</p>}
         </form>

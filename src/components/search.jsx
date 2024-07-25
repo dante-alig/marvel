@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Search = () => {
   const location = useLocation();
@@ -7,11 +8,13 @@ const Search = () => {
 
   return (
     <form
+      className="search-bar"
       onSubmit={(event) => {
         event.preventDefault();
       }}
     >
       <input
+        className="search-style"
         id="research"
         type="text"
         placeholder={
@@ -24,6 +27,7 @@ const Search = () => {
           setSearch(event.target.value);
         }}
       />
+      <FontAwesomeIcon className="magnifying-icon" icon="fa-magnifying-glass" />
     </form>
   );
 };

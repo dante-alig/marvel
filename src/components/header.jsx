@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Search from "./search";
 import Login from "./login";
-const Header = ({ display, setDisplay }) => {
+
+const Header = ({ display, setDisplay, token, setToken }) => {
   return (
     <>
       <header>
@@ -15,7 +16,21 @@ const Header = ({ display, setDisplay }) => {
           <Search />
           <Link to="/">personnages</Link>
           <Link to="/comics">comics</Link>
-          <div>favoris</div>
+          <Link
+            className="menu-favoris"
+            to="/likes"
+            onClick={() => {
+              if (!token) {
+                setDisplay((prevDisplay) => {
+                  const newDisplay = !prevDisplay;
+                  document.body.style.overflow = newDisplay ? "auto" : "hidden";
+                  return newDisplay;
+                });
+              }
+            }}
+          >
+            Favoris
+          </Link>
           <div
             onClick={() => {
               setDisplay((prevDisplay) => {
@@ -29,7 +44,12 @@ const Header = ({ display, setDisplay }) => {
           </div>
         </menu>
       </header>
-      <Login display={display} setDisplay={setDisplay} />
+      <Login
+        display={display}
+        setDisplay={setDisplay}
+        token={token}
+        setToken={setToken}
+      />
     </>
   );
 };
