@@ -11,7 +11,7 @@ const Comics = () => {
       try {
         const response = await axios.get("http://localhost:3000/marvel/comics");
         setData(response.data);
-        console.log(response.data);
+        console.log("liste de toute les comics", response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -26,19 +26,19 @@ const Comics = () => {
     </main>
   ) : (
     <main>
-      <div className="container-box">
-        {data.results.map((perso, index) => {
-          console.log(perso.thumbnails);
+      <div className="comics-box">
+        {data.results.map((comics, index) => {
           return (
-            <Link to={`/character/${perso._id}`} className="perso" key={index}>
-              {perso?.thumbnail ? (
-                <img
-                  src={`${perso.thumbnail.path}.${perso.thumbnail.extension}`}
-                  alt={`Thumbnail ${index}`}
-                />
-              ) : (
-                <div className="notfound">a</div>
-              )}
+            <Link to={`/comic/${comics._id}`} className="comics" key={index}>
+              <img
+                src={`${comics.thumbnail.path}.${comics.thumbnail.extension}`}
+                alt={`Thumbnail ${index}`}
+              />
+              <div className="comics-infos">
+                <h2>{comics.title}</h2>
+                <p>{comics.description}</p>
+                <button>Lire la suite</button>
+              </div>
             </Link>
           );
         })}

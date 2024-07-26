@@ -1,6 +1,7 @@
 import logo from "../images/marvel_logo.png";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Cookies from "js-cookie";
 import Search from "./search";
 import Login from "./login";
 
@@ -18,7 +19,7 @@ const Header = ({ display, setDisplay, token, setToken }) => {
           <Link to="/comics">comics</Link>
           <Link
             className="menu-favoris"
-            to="/likes"
+            to={`/likes/${token}`}
             onClick={() => {
               if (!token) {
                 setDisplay((prevDisplay) => {
@@ -32,15 +33,22 @@ const Header = ({ display, setDisplay, token, setToken }) => {
             Favoris
           </Link>
           <div
+            className="conexion"
             onClick={() => {
-              setDisplay((prevDisplay) => {
-                const newDisplay = !prevDisplay;
-                document.body.style.overflow = newDisplay ? "auto" : "hidden";
-                return newDisplay;
-              });
+              if (token) {
+                setToken(null);
+                Cookies.remove("token");
+              } else {
+                setDisplay((prevDisplay) => {
+                  const newDisplay = !prevDisplay;
+                  document.body.style.overflow = newDisplay ? "auto" : "hidden";
+                  return newDisplay;
+                });
+              }
             }}
           >
             <FontAwesomeIcon className="circle-icon" icon="fa-circle-user" />{" "}
+            <p>{token ? "déconnexion" : "connexion"}</p>
           </div>
         </menu>
       </header>

@@ -38,10 +38,6 @@ const Login = ({ display, setDisplay, setToken }) => {
       navigate("/");
       setDisplay(!display);
       Cookies.set("token", token);
-      console.log(token);
-      console.log(Cookies.get("token"));
-
-      console.log(error);
       setError(null);
     } catch (error) {
       setError(error.response.data.message);

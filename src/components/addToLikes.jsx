@@ -12,8 +12,10 @@ const AddToLikes = ({
   token,
   data,
   characterId,
+  setDisplay,
 }) => {
   const [error, setError] = useState(null);
+  const [likeAction, setlikeAction] = useState("Ajouter à mes favoris");
 
   useEffect(() => {
     setLink(`/character/${characterId}`);
@@ -40,7 +42,17 @@ const AddToLikes = ({
   return (
     <button
       onClick={() => {
-        postFavoris();
+        if (token) {
+          postFavoris();
+          setlikeAction("enregistré dans favoris");
+        } else {
+          setDisplay((prevDisplay) => {
+            const newDisplay = !prevDisplay;
+            document.body.style.overflow = newDisplay ? "auto" : "hidden";
+            return newDisplay;
+          });
+        }
+
         console.log(token);
         console.log(image);
         console.log(link);
@@ -48,7 +60,7 @@ const AddToLikes = ({
       }}
     >
       <FontAwesomeIcon className="star-icon" icon="fa-star" />
-      Ajouter à mes favoris
+      {likeAction}
     </button>
   );
 };

@@ -12,19 +12,25 @@ a {
 }
 
 h1 {
-  font-size: 25px;
+  font-size: 60px;
   color: white;
+  font-family: "MarvelRegular";
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 20px;
   font-family: "Roboto", sans-serif;
   font-weight: 900;
   font-style: normal;
-  text-transform: uppercase;
 }
 
 main {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1634px;
+  max-width: 1634px;
   margin: 0 auto;
 }
 
@@ -75,6 +81,17 @@ menu a {
 
 .circle-icon {
   font-size: 22px;
+}
+
+.conexion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.conexion p {
+  margin-left: 10px;
 }
 
 /* SEARCH BAR */
@@ -350,4 +367,151 @@ form p {
   margin: 0px 10px 0px 10px;
 }
 
+/* ---------- COMICS ------------- */
+
+.comics-box {
+  width: 100%;
+  margin-top: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.comics {
+  width: 490px;
+  height: 275px;
+  background-color: #292828;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+  color: white;
+  display: flex;
+  opacity: 80%;
+}
+
+.comics:hover {
+  opacity: 100%;
+}
+
+.comics img {
+  width: 183px;
+  height: 275px;
+  object-fit: contain;
+  opacity: 85%;
+}
+
+.comics-infos {
+  padding: 20px;
+  line-height: 22px;
+}
+
+.comics-infos p {
+  font-size: 12px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  height: 90px;
+  overflow: hidden;
+  color: rgb(239, 235, 235);
+}
+
+.comics-infos h2 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: white;
+  line-height: 25px;
+}
+
+.comics-infos button {
+  all: unset;
+  text-align: center;
+  width: 270px;
+  height: 30px;
+  margin-top: 20px;
+  border: 1px solid #1a1b1d;
+  background-color: black;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+.comics-infos button:hover {
+  background-color: red;
+}
+
+/* ---------- COMIC ------------- */
+
+.comic-box {
+  width: 1260px;
+  margin: 50px auto;
+  background-color: black;
+  display: flex;
+}
+.comic-description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #ec1c23;
+  padding: 50px;
+}
+
+.comic-box img {
+  width: 1260px;
+  object-fit: cover;
+}
+
+.comic-box button {
+  all: unset;
+  text-align: center;
+  width: 250px;
+  height: 47px;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid white;
+  margin-top: 30px;
+  font-size: 15px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.comic-box p {
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  line-height: 20px;
+  text-align: left;
+}
+
 /* ---------- LIKES ------------- */
+
+.square-box {
+  position: relative;
+}
+
+.square-icon {
+  color: black;
+  font-size: 30px;
+  position: absolute;
+  z-index: 10;
+  right: 10px;
+  top: -220px;
+  height: 20px;
+  width: 20px;
+  background-color: red;
+  border: 2px solid black;
+  opacity: 70%;
+  cursor: pointer;
+}
+
+.square-icon:hover {
+  opacity: 100%;
+}

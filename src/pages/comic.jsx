@@ -1,10 +1,9 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import fond from "../images/fond.png";
 import AddToLikes from "../components/addToLikes";
 
-const Character = ({
+const Comic = ({
   setName,
   name,
   image,
@@ -17,21 +16,17 @@ const Character = ({
 }) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
-  const [dataComics, setDataComics] = useState(null);
-  const { characterId } = useParams();
+  const { comicId } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("useparams>>>>>>>", comicId);
       try {
         const response = await axios.get(
-          `http://localhost:3000/marvel/characters/${characterId}`
+          `http://localhost:3000/marvel/comic/${comicId}`
         );
         setData(response.data);
-
-        const responseComics = await axios.get(
-          `http://localhost:3000/marvel/comics/${characterId}`
-        );
-        setDataComics(responseComics.data);
+        console.log("la reponse pour comicId", response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -47,13 +42,13 @@ const Character = ({
   ) : (
     <>
       {/* ------------PRESENTATION DU PERSONNAGE--------------- */}
-      <div className="character-box">
+      <div className="comic-box">
         <img
           src={`${data.thumbnail.path}.${data.thumbnail.extension}`}
-          alt={`Thumbnail ${characterId}`}
+          alt={`Thumbnail ${comicId}`}
         />
-        <div className="character-description">
-          <h1>{data.name}</h1>
+        <div className="comic-description">
+          <h1>{data.title}</h1>
           <p>{data.description}</p>
           {/* ------------ADD TO LIKES--------------- */}
           <AddToLikes
@@ -65,33 +60,13 @@ const Character = ({
             setImage={setImage}
             token={token}
             data={data}
-            characterId={characterId}
+            comicId={comicId}
             setDisplay={setDisplay}
           />
         </div>
-      </div>
-
-      {/* ------------COMICS --------------- */}
-      <div className="character-bibliography-box">
-        {dataComics.comics.map((comicsBooks, index) => {
-          return (
-            <div className="character-bibliography" key={index}>
-              {comicsBooks.thumbnail.path.includes("image_not_available") ? (
-                <img src={fond} alt="fond" />
-              ) : (
-                <img
-                  src={`${comicsBooks.thumbnail.path}.${comicsBooks.thumbnail.extension}`}
-                  alt={`Thumbnail ${index}`}
-                />
-              )}
-            </div>
-          );
-        })}
-
-        <div className="character-apparitions"></div>
       </div>
     </>
   );
 };
 
-export default Character;
+export default Comic;

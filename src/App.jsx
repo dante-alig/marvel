@@ -7,14 +7,16 @@ import Header from "./components/header";
 import Character from "./pages/character";
 import Comics from "./pages/comics";
 import Likes from "./pages/likes";
+import Comic from "./pages/comic";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faStar,
   faCircleUser,
   faMagnifyingGlass,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faStar, faCircleUser, faMagnifyingGlass);
+library.add(faStar, faCircleUser, faMagnifyingGlass, faXmark);
 
 function App() {
   const [display, setDisplay] = useState(true);
@@ -48,11 +50,29 @@ function App() {
               link={link}
               setLink={setLink}
               token={token}
+              display={display}
+              setDisplay={setDisplay}
             />
           }
         />
         <Route path="/comics" element={<Comics />} />
-        <Route path="/likes" element={<Likes token={token} />} />
+        <Route
+          path="/comic/:comicId"
+          element={
+            <Comic
+              name={name}
+              setName={setName}
+              image={image}
+              setImage={setImage}
+              link={link}
+              setLink={setLink}
+              token={token}
+              display={display}
+              setDisplay={setDisplay}
+            />
+          }
+        />
+        <Route path="/likes/:tokenParams" element={<Likes token={token} />} />
       </Routes>
     </Router>
   );
