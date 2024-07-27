@@ -4,70 +4,67 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const Login = ({ display, setDisplay, setToken }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordVerif, setPasswordVerif] = useState("");
-  const [popUp, setPopUp] = useState(false);
+  const [email, setEmail] = useState(""); // État pour l'email
+  const [password, setPassword] = useState(""); // État pour le mot de passe
+  const [passwordVerif, setPasswordVerif] = useState(""); // État pour la vérification du mot de passe (inscription)
   const [login, setLogin] = useState(true);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-  {
-    /* --------------- REQUETE --------------------- */
-  }
-
   const postData = async () => {
     try {
+      // Fonction pour déterminer la route en fonction du mode (connexion ou inscription)
       const route = (login) => {
-        if (login) {
-          return "login";
-        } else {
-          return "signup";
-        }
+        return login ? "login" : "signup";
       };
+
+      // Envoi de la requête POST avec les données de l'utilisateur
       const response = await axios.post(
         `http://localhost:3000/user/${route(login)}`,
         { email, password },
         {
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json" }, // En-tête pour spécifier le type de contenu
         }
       );
+
       const { token } = response.data;
-      setToken(token);
-      navigate("/");
-      setDisplay(!display);
-      Cookies.set("token", token);
-      setError(null);
+      setToken(token); // Mise à jour du token dans l'état parent
+      navigate("/"); // Redirection vers la page d'accueil
+      setDisplay(!display); // Fermeture de la fenêtre de connexion/inscription
+      Cookies.set("token", token); // Stockage du token dans un cookie
+      setError(null); // Réinitialisation de l'erreur
     } catch (error) {
-      setError(error.response.data.message);
+      // Gestion des erreurs
+      setError(error.response.data.message); // Mise à jour de l'erreur avec le message du serveur
     }
   };
 
   return (
     <>
-      {/* --------------- MODAL BACKGROUND --------------------- */}
+      {/* --------------- FOND DE LA MODALE --------------------- */}
       <div
         className={display ? "bg-display" : "cover"}
         onClick={() => {
           setDisplay((prevDisplay) => {
             const newDisplay = !prevDisplay;
-            document.body.style.overflow = newDisplay ? "auto" : "hidden";
+            document.body.style.overflow = newDisplay ? "auto" : "hidden"; // Gestion du défilement de la page
             return newDisplay;
           });
         }}
       ></div>
 
-      {/* --------------- MODAL SIGNUP/LOGIN --------------------- */}
+      {/* --------------- MODALE D'INSCRIPTION/CONNEXION --------------------- */}
       <div className={display ? "bg-display" : "modal-box"}>
         <div className="windows">
-          <p>{login ? "login" : "sign'up"}</p>
+          <p>{login ? "login" : "sign'up"}</p>{" "}
+          {/* Affichage du titre en fonction du mode */}
         </div>
         <form
           onSubmit={(event) => {
-            event.preventDefault();
+            event.preventDefault(); // Empêcher le rechargement de la page au submit
             if (email && password && (login || password === passwordVerif)) {
-              postData();
+              postData(); // Appel de la fonction postData si les champs sont remplis
               setDisplay((prevDisplay) => {
                 const newDisplay = !prevDisplay;
                 document.body.style.overflow = newDisplay ? "auto" : "hidden";
@@ -75,10 +72,11 @@ const Login = ({ display, setDisplay, setToken }) => {
               });
               console.log("le formulaire a été envoyé");
             } else {
-              setError("Vous devez remplir tous les champs.");
+              setError("Vous devez remplir tous les champs."); // Affichage d'une erreur si les champs ne sont pas remplis
             }
           }}
         >
+          {/* Champ pour l'email */}
           <div>
             <input
               id="email"
@@ -88,6 +86,8 @@ const Login = ({ display, setDisplay, setToken }) => {
               onChange={(event) => setEmail(event.target.value)}
             />
           </div>
+
+          {/* Champ pour le mot de passe */}
           <div>
             <input
               id="password"
@@ -97,6 +97,8 @@ const Login = ({ display, setDisplay, setToken }) => {
               onChange={(event) => setPassword(event.target.value)}
             />
           </div>
+
+          {/* Champ pour la vérification du mot de passe (affiché uniquement en mode inscription) */}
           {!login && (
             <div>
               <input
@@ -108,8 +110,12 @@ const Login = ({ display, setDisplay, setToken }) => {
               />
             </div>
           )}
+
+          {/* Bouton de soumission du formulaire */}
           <button>{login ? "Je me connecte" : "Je m'enregistre"}</button>
           <p>ou</p>
+
+          {/* Lien pour basculer entre connexion et inscription */}
           <p
             className="modal-switch-infos"
             onClick={() => {
@@ -118,6 +124,8 @@ const Login = ({ display, setDisplay, setToken }) => {
           >
             {login ? "Je m'enregistre" : "Je me connecte"}
           </p>
+
+          {/* Affichage des erreurs */}
           {error && <p className="error">{error}</p>}
         </form>
       </div>
@@ -125,4 +133,4 @@ const Login = ({ display, setDisplay, setToken }) => {
   );
 };
 
-export default Login;
+export default Login; // Exportation du composant pour utilisation dans d'autres fichiers

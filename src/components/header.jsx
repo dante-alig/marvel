@@ -5,16 +5,25 @@ import Cookies from "js-cookie";
 import Search from "./search";
 import Login from "./login";
 
-const Header = ({ display, setDisplay, token, setToken }) => {
+const Header = ({
+  display, // État pour afficher ou non le composant Login
+  setDisplay,
+  token,
+  setToken,
+  search,
+  setSearch,
+}) => {
   return (
     <>
+      {/* LOGO */}
       <header>
         <Link to="/" className="logo">
           <img src={logo} alt="logo Marvel" />
         </Link>
 
+        {/* MENU */}
         <menu>
-          <Search />
+          <Search search={search} setSearch={setSearch} token={token} />
           <Link to="/">personnages</Link>
           <Link to="/comics">comics</Link>
           <Link
@@ -32,13 +41,17 @@ const Header = ({ display, setDisplay, token, setToken }) => {
           >
             Favoris
           </Link>
+
+          {/* LOGIN/SIGNUP */}
           <div
             className="conexion"
             onClick={() => {
               if (token) {
+                // Si l'utilisateur est authentifié, déconnexion
                 setToken(null);
-                Cookies.remove("token");
+                Cookies.remove("token"); // Suppression du cookie de token
               } else {
+                // Sinon, affichage du composant Login
                 setDisplay((prevDisplay) => {
                   const newDisplay = !prevDisplay;
                   document.body.style.overflow = newDisplay ? "auto" : "hidden";
@@ -52,6 +65,8 @@ const Header = ({ display, setDisplay, token, setToken }) => {
           </div>
         </menu>
       </header>
+
+      {/* FENETRE MODAL */}
       <Login
         display={display}
         setDisplay={setDisplay}

@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Search = () => {
+const Search = ({ search, setSearch, token }) => {
   const location = useLocation();
-  const [search, setSearch] = useState("");
 
   return (
     <form
-      className="search-bar"
+      className={
+        location.pathname === `/likes/${token}` ? "hide-search" : "search-bar"
+      }
       onSubmit={(event) => {
         event.preventDefault();
       }}
@@ -19,8 +20,8 @@ const Search = () => {
         type="text"
         placeholder={
           location.pathname === "/"
-            ? "recherche des persoonages"
-            : "recherche de comics"
+            ? "rechercher un personage"
+            : "rechercher un comics"
         }
         value={search}
         onChange={(event) => {

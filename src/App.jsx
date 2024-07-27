@@ -24,6 +24,7 @@ function App() {
   const [image, setImage] = useState("");
   const [link, setLink] = useState("");
   const [token, setToken] = useState(Cookies.get("token") || "");
+  const [search, setSearch] = useState("");
   return (
     <Router>
       <Header
@@ -31,14 +32,11 @@ function App() {
         setDisplay={setDisplay}
         token={token}
         setToken={setToken}
+        search={search}
+        setSearch={setSearch}
       />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home setName={setName} setImage={setImage} setLink={setLink} />
-          }
-        />
+        <Route path="/" element={<Home search={search} />} />
         <Route
           path="/character/:characterId"
           element={
@@ -55,7 +53,7 @@ function App() {
             />
           }
         />
-        <Route path="/comics" element={<Comics />} />
+        <Route path="/comics" element={<Comics search={search} />} />
         <Route
           path="/comic/:comicId"
           element={

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams, Link, Navigate } from "react-router-dom";
+import loadingAnim from "../assets/marvel_logo.png";
 
 const Likes = ({ token }) => {
   const [loading, setLoading] = useState(true);
@@ -16,7 +17,7 @@ const Likes = ({ token }) => {
       try {
         const response = await axios.get(
           `http://localhost:3000/likes/${tokenParams}`
-        );
+        ); // Requête GET pour récupérer les likes de l'utilisateur
         setData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -26,6 +27,7 @@ const Likes = ({ token }) => {
     fetchData();
   }, [token, tokenParams, deleted, maj]);
 
+  // Requête DELETE pour supprimer un favoris
   useEffect(() => {
     const deletedData = async () => {
       try {
@@ -33,21 +35,22 @@ const Likes = ({ token }) => {
           headers: { "Content-Type": "application/json" },
           data: { image: deleted },
         });
-        setMaj(!maj);
+        setMaj(!maj); // Mise à jour de l'état maj pour rafraîchir les données
       } catch (error) {
         setError(error.response.data.message);
       }
     };
     if (deleted) {
-      deletedData();
+      deletedData(); // Appel de la fonction deletedData si un élément est marqué pour suppression
     }
   }, [deleted]);
 
   return loading ? (
-    <main>
-      <p>Loading...</p>
+    <main className="loading-logo">
+      <img src={loadingAnim} alt="loading animation" />
+      <p>loading...</p>
     </main>
-  ) : token ? (
+  ) : token ? ( // Rendu conditionnel basé sur la présence du token
     <main>
       <div className="container-box">
         {data.map((favoris, index) => {
@@ -62,7 +65,7 @@ const Likes = ({ token }) => {
               <div
                 className="square-box"
                 onClick={() => {
-                  setDeleted(favoris.image);
+                  setDeleted(favoris.image); // Mise à jour de l'état deleted avec l'image du favori
                   console.log(deleted);
                 }}
               >
@@ -74,7 +77,7 @@ const Likes = ({ token }) => {
       </div>
     </main>
   ) : (
-    <Navigate to="/" />
+    <Navigate to="/" /> // Redirection vers la page d'accueil si le token est absent
   );
 };
 

@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import AddToLikes from "../components/addToLikes";
+import loadingAnim from "../assets/marvel_logo.png";
 
 const Comic = ({
   setName,
@@ -16,12 +17,12 @@ const Comic = ({
 }) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
-  const { comicId } = useParams();
+  const { comicId } = useParams(); // Récupération du paramètre comicId depuis l'URL
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("useparams>>>>>>>", comicId);
       try {
+        // Requête pour obtenir les données du comic depuis le serveur
         const response = await axios.get(
           `http://localhost:3000/marvel/comic/${comicId}`
         );
@@ -33,15 +34,17 @@ const Comic = ({
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [comicId]); // Dépendance de l'effet sur comicId
 
+  // Rendu conditionnel : affichage du chargement ou des données du comic
   return loading ? (
-    <main>
-      <p>Loading...</p>
+    <main className="loading-logo">
+      <img src={loadingAnim} alt="loading animation" />
+      <p>loading...</p>
     </main>
   ) : (
     <>
-      {/* ------------PRESENTATION DU PERSONNAGE--------------- */}
+      {/*PRESENTATION DU COMIC */}
       <div className="comic-box">
         <img
           src={`${data.thumbnail.path}.${data.thumbnail.extension}`}
@@ -50,7 +53,7 @@ const Comic = ({
         <div className="comic-description">
           <h1>{data.title}</h1>
           <p>{data.description}</p>
-          {/* ------------ADD TO LIKES--------------- */}
+          {/* BOUTON AJOUTER AUX FAVORIS */}
           <AddToLikes
             name={name}
             setName={setName}
