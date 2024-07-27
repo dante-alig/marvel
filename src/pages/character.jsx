@@ -28,13 +28,13 @@ const Character = ({
       try {
         // Requête pour obtenir les informations du personnage
         const response = await axios.get(
-          `http://test--marvel-backend--dqd24mcv82s5.code.run/marvel/characters/${characterId}`
+          `https://test--marvel-backend--dqd24mcv82s5.code.run/marvel/characters/${characterId}`
         );
         setData(response.data);
 
         // Requête pour obtenir les informations des comics liés au personnage
         const responseComics = await axios.get(
-          `http://test--marvel-backend--dqd24mcv82s5.code.run/marvel/comics/${characterId}`
+          `https://test--marvel-backend--dqd24mcv82s5.code.run/marvel/comics/${characterId}`
         );
         setDataComics(responseComics.data);
       } catch (error) {

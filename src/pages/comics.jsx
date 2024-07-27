@@ -13,7 +13,7 @@ const Comics = ({ search }) => {
       try {
         // Requête GET pour obtenir les comics depuis l'API
         const response = await axios.get(
-          "http://test--marvel-backend--dqd24mcv82s5.code.run/marvel/comics"
+          "https://test--marvel-backend--dqd24mcv82s5.code.run/marvel/comics"
         );
         const comics = response.data.results;
 
