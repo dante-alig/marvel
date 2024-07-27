@@ -13,7 +13,7 @@ const Home = ({ search }) => {
       try {
         // Requête GET pour récupérer les personnages Marvel
         const response = await axios.get(
-          "http://localhost:3000/marvel/characters"
+          "http://test--marvel-backend--dqd24mcv82s5.code.run/marvel/characters"
         );
         const characters = response.data.results;
         // Filtrage des personnages en fonction du terme de recherche

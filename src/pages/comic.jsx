@@ -24,7 +24,7 @@ const Comic = ({
       try {
         // Requête pour obtenir les données du comic depuis le serveur
         const response = await axios.get(
-          `http://localhost:3000/marvel/comic/${comicId}`
+          `http://test--marvel-backend--dqd24mcv82s5.code.run/marvel/comic/${comicId}`
         );
         setData(response.data);
         console.log("la reponse pour comicId", response.data);

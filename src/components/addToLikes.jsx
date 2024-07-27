@@ -39,7 +39,7 @@ const AddToLikes = ({
   const postFavoris = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/marvel/likes",
+        "http://test--marvel-backend--dqd24mcv82s5.code.run/marvel/likes",
         { name, image, link, token },
         {
           headers: { "Content-Type": "application/json" },

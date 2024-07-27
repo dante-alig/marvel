@@ -16,7 +16,7 @@ const Likes = ({ token }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/likes/${tokenParams}`
+          `http://test--marvel-backend--dqd24mcv82s5.code.run/likes/${tokenParams}`
         ); // Requête GET pour récupérer les likes de l'utilisateur
         setData(response.data);
       } catch (error) {
@@ -31,10 +31,13 @@ const Likes = ({ token }) => {
   useEffect(() => {
     const deletedData = async () => {
       try {
-        await axios.delete("http://localhost:3000/likes/deleted", {
-          headers: { "Content-Type": "application/json" },
-          data: { image: deleted },
-        });
+        await axios.delete(
+          "http://test--marvel-backend--dqd24mcv82s5.code.run/likes/deleted",
+          {
+            headers: { "Content-Type": "application/json" },
+            data: { image: deleted },
+          }
+        );
         setMaj(!maj); // Mise à jour de l'état maj pour rafraîchir les données
       } catch (error) {
         setError(error.response.data.message);

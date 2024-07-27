@@ -12,7 +12,9 @@ const Comics = ({ search }) => {
     const fetchData = async () => {
       try {
         // Requête GET pour obtenir les comics depuis l'API
-        const response = await axios.get("http://localhost:3000/marvel/comics");
+        const response = await axios.get(
+          "http://test--marvel-backend--dqd24mcv82s5.code.run/marvel/comics"
+        );
         const comics = response.data.results;
 
         // Filtrage des comics en fonction du terme de recherche
